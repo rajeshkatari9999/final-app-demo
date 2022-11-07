@@ -1,0 +1,1249 @@
+<TextField fullWidth label='Name' placeholder="Enter your name" />
+<FormLabel component="legend">Gender</FormLabel>
+                        <RadioGroup aria-label="gender" name="gender" style={{ display: 'initial' }}>
+                            <FormControlLabel value="female" control={<Radio />} label="Female" />
+                            <FormControlLabel value="male" control={<Radio />} label="Male" />
+                        </RadioGroup>
+                
+                //phone numbers
+                <TextField fullWidth label='Phone Number' placeholder="Enter your phone number" />
+                <TextField fullWidth label='Confirm Password' placeholder="Confirm your password"/>
+
+
+                //login   {hasAccount ?(
+                  <>
+                  <button 
+                   onClick={handleLogin}
+                  type='submit'
+                   color="secondary" 
+                   variant="contained" 
+                  style={btnStyle} 
+                  fullWidth>Login</button>
+                      <p>dont have an account ?<span onClick={()=> setHasAccount(!hasAccount)}>Sign up</span></p>       
+  
+                      </>       
+                  ):(
+                    <>
+                    <button 
+                    onClick={handleSignup}
+                    type='submit'
+                     color="secondary" 
+                     variant="contained" 
+                    style={btnStyle} 
+                    fullWidth>Sign up</button>
+                        <p> have an account ?<span onClick={()=> setHasAccount(!hasAccount)}>Login</span></p>       
+    
+                        </>       
+                  )}
+  
+  
+                  <AddCircleOutlineOutlinedIcon />
+                  setUser("");
+                  {this.state. user ?(<profile/>):<login/>}  
+                   
+         <signup setEmail={setEmail}
+         setPassword={setPassword}
+         handleSignup={handleSignup}
+         setHasAccount={setHasAccount} 
+/>
+
+
+
+<login email={email} 
+setEmail={setEmail}
+ password={password}
+setPassword={setPassword}
+handleLogin={handleLogin}
+handleSignup={handleSignup}
+hasAccount={hasAccount}
+setHasAccount={setHasAccount}
+emailError={emailError}
+passwordError={passwordError}
+rememberPassword={rememberPassword}
+
+/>
+<profile handleLoguot={handleLoguot}/>
+
+//post.js//
+import React, { Component } from 'react'
+
+import withStyles from '@material-ui/core/styles/withStyles';
+import Card from '@material-ui/core/Card';
+//import CardActionArea from '@material-ui/core/CardActionArea';
+//import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import { Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom/Link';
+const style ={
+    card:{
+        display:'flex',
+        marginBottom:20,
+    },
+    image:{
+        miniWidth:200,
+    }
+}
+
+class Post extends Component {
+    render() {
+       
+        const {classes, post:{body,createAt,userImage,userHandle,postId,categories,tags,locations,text,saved }} = this.props
+
+        return (
+           <Card className={classes.card}>
+               <CardMedia 
+               image={userImage}
+                title="Profile image"className={classes.image}/>
+                   <CardContent>
+                       <Typography variant="h5" component={Link} to={`/users/${userHandle}`}
+                       color="primary"
+                       >{userHandle}</Typography>
+                       <Typography variant="body2" color="textPrimary">{createAt}</Typography>
+                       <Typography variant="body1">{body}</Typography>
+                   </CardContent>
+           </Card>
+        )
+    }
+}
+export default withStyles(Post);
+// SEARCH BAR
+  <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              inputProps={{ 'aria-label': 'search'}}
+            />
+          </div>
+          <div>
+
+          </div>
+
+
+          //FavoriteIcon code
+          // <Button  color="secondary" size="large" startIcon={<FavoriteIcon/>}component={Link} to="/"></Button>
+         
+         //card propreties
+         <CardContent>
+  <Typography variant="body1" color="textSecondary" component="p">
+   <strong>Work</strong> plumber<br/>
+   <strong>location</strong>guntur
+  </Typography>
+</CardContent>
+
+ onClick={handleExpandClick}
+ <Collapse in={expanded} timeout="auto" unmountOnExit>
+  
+</Collapse>
+action={
+    <IconButton aria-label="settings">
+      
+    </IconButton>
+     <IconButton  color="secondary" size="large" component={Link} to ="/"><HomeIcon/></IconButton>
+          <Button color="secondary" size="large" component={Link} to="/profile"><AccountCircleIcon/></Button>
+
+          <Button  color="secondary" aria-label="Categories" component={Link} to="/categories"><CategoryIcon/></Button>
+          
+          <Button color="secondary" aria-label="add"  component={Link} to="/Addpost" className={classes.margin}>
+          <AddIcon />
+        </Button>
+         <AppBar className="appbar"
+        position= "fixed"
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: open,
+        })}
+
+      >
+      
+      const[user,setUser] = useState('');
+      const[email,setEmail] = useState('');
+      const[password,setPassword] = useState('');
+      const[emailError,setEmailError] = useState('');
+      const[passwordError,setPasswordError] = useState('');
+      const[hasAccount,setHasAccount] = useState('');
+      const [rememberPassword,setRememberPassword]= useState('');
+      
+      const clearInputs =() =>{
+        setEmail('');
+        setPassword('');
+      }
+      
+ 
+      const clearErrors =() =>{
+        setEmailError('');
+        setPasswordError('');
+      }
+
+
+
+      const handleLogin =()=>{
+        clearErrors();
+        fire.auth()
+        .signInWithEmailAndPassword(email,password)
+        .catch(err =>{
+          switch(err.code){
+            case "auth/invalid-email":
+              case "auth/user-disabled":
+                case "auth/user-not-found":
+                  setEmailError(err.massage);
+                  break;
+                  case "wrong-password":
+                    setPasswordError(err.massage);
+                    break;
+          }
+        });
+          
+        
+      };
+
+    
+
+  const handleSignup =()=>{
+    clearErrors();
+    fire.auth()
+    .createUserWithEmailAndPassword(email,password)
+    .catch(err =>{
+      switch(err.code){
+        case "auth/email-already-in-use":
+          case "auth/invalid-email":
+           
+              setEmailError(err.massage);
+              break;
+              case "weak-password":
+                setPasswordError(err.massage);
+                break;
+      }
+    });
+      
+    
+  };
+
+   const handleLogout =() =>{
+     
+    fire.auth().signOut();
+   };
+
+   const authListener =()=>{
+
+     fire.auth().onAuthStateChanged((user)=>{
+        
+      if (user){
+        clearInputs();
+        setUser(user);
+      }else{
+        setUser("");
+      }
+       
+
+     });
+
+   };
+
+   useEffect(()=>{
+     authListener();
+   },[]);
+    {user ?(
+              
+             <profile handleLogout={handleLogout}/>
+           
+           ):(
+                 <login email={email} 
+                    // setEmail={setEmail}
+                       password={password}
+                  // setPassword={setPassword}
+                     handleLogin={handleLogin}
+                    handleSignup={handleSignup}
+                      hasAccount={hasAccount}
+                 // setHasAccount={setHasAccount}
+                     emailError={emailError}
+                 passwordError={passwordError}
+                 rememberPassword={rememberPassword}
+                 />
+                        )}
+
+       <signup setEmail={setEmail}
+            setPassword={setPassword}
+            handleSignup={handleSignup}
+            setHasAccount={setHasAccount} 
+                               />
+
+
+ <CooliePost title={post.title} subheader={post.subheader}image={post.image} work={post.work} location={post.location}/>
+ 
+  <Card className={classes.root} > 
+  //firebase//
+  onLogout =()=>{
+    firebase.auth().signOut().then(function() {
+        // Sign-out successful.
+      }).catch((error) => {
+        // An error happened.
+      });
+      //login//
+      <p>you an account pless login</p>
+                <Button variant="contained" color="secondary" 
+                component={Link} to="/login"><strong>Login</strong></Button>
+
+                //check box//
+                 <FormControlLabel
+                        control={<Checkbox name="checkedA" />}
+                        label="I accept the terms and conditions."
+                    />
+                    //grids Home
+                     <Grid  
+     container
+     direction="row" 
+     justify="center"
+     alignItems="center"className={classes.root}>  
+    
+       <Grid item container  justify="center" >
+       
+         <Grid item xs={6}  md={3} sm={2}/>
+        
+         <Postcard/>
+       </Grid>
+      
+       
+       </Grid>
+       //Postcard
+       import React,{useState,useEffect} from 'react';
+import Post from './Post';
+import {Grid} from '@material-ui/core';
+import { Subheader } from 'material-ui';
+import {db} from '../config/fire';
+
+
+const Postcard =()=>{
+  const [posts,setPosts]= useState([
+   
+   
+  ]);
+
+  // use effect -> runs a pice of code based on a specific conditions
+  useEffect(()=> {
+
+    db.collection('posts').onSnapshot(snapshot =>{
+    
+      setPosts(snapshot.docs.map(doc=>({
+        id:doc.id,
+        post:doc.data()}))); 
+
+    })
+
+  },[]);
+
+  
+    return(
+     
+      
+      <Grid container  spacing={0}>
+        <br/>
+        {
+        posts.map( post=>(
+          <Post key={post.id} title={post.username} subheader={post.subheader}img={post.img} work={post.work} location={post.location}/>
+        ))
+      }
+      <Grid item xs={2}  >
+        <br/>
+
+      <Post/>
+
+      </Grid>
+      <Grid item xs={2} >
+        <br/>
+      <Post/>
+     </Grid>
+     <Grid item xs={2} >
+       <br/>
+      
+      </Grid>
+      <Grid item xs={2}>
+       <br/>
+      
+      </Grid>
+      <Grid item xs={2}>
+       <br/>
+      
+      </Grid>
+      <Grid item xs={2}>
+        <br/>
+      
+      </Grid>
+      
+      </Grid>
+
+   
+    
+    );
+};
+
+export default Postcard;//
+searchbar
+<form className={classes.root} noValidate autoComplete="off">
+         
+           <TextField id="standard-basic" label="Search here..."/>
+      </form>
+      //post//
+       const [expanded, setExpanded] = React.useState(false);
+    
+    const handleExpandClick = () => {
+      setExpanded(!expanded);
+    };%PUBLIC_URL%/favicon.ico
+
+    avatar={ <Avatar alt="Coolie9" src="https://images.unsplash.com/photo-1544725176-7c40e5a
+71c5e?ixid=MnwxMjA3f
+DB8MHxzZWFyY2h8Nnx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&ixli
+b=rb-1.2.1&auto=format&fit=crop&w=500&q=60" /> 
+
+}
+ <FavoriteBorderIcon/> <ShareIcon />
+ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import ShareIcon from 
+'@material-ui/icons/Share';import Avatar from '@material-ui/core/Avatar';
+@media (min-width: 275) {
+    .Newcard{
+       
+       min-height: fit-content;
+       object-fit: contain;
+       border-bottom: 1px solid lightgray;
+    }
+ }
+ const Home =() =>{
+  
+  //const classes = useStyles(); 
+  const [posts,setPosts]= useState([
+   
+   
+  ]);
+
+  useEffect(()=> {
+
+    db.collection('posts').onSnapshot(snapshot =>{
+    
+      setPosts(snapshot.docs.map(doc=>({
+        id:doc.id,
+        post:doc.data()}))); 
+
+    })
+
+  },[]);
+
+  
+      <Grid container  spacing={0}>
+        <br/>
+        {
+        posts.map( post=>(
+          <Post key={post.id} title={post.username} subheader={post.subheader}img={post.img} work={post.work} location={post.location}/>
+        ))
+      }
+
+      <Grid item xs={2}  >
+        <br/>
+
+      <Post/>
+
+      </Grid>
+      
+      </Grid>
+</>
+  );
+    };
+  
+
+
+export default Home;
+container{
+    margin: 90px auto 0 auto;
+     max-width: max-content;
+     max-height: max-content;
+     text-align: flex-start;
+     align-items: flex-start;
+     background-color: #fafafa;
+ }
+ <Avatar aria-label="recipe" className={classes.avatar}>
+            R
+          </Avatar> rajesh
+
+
+          //paper
+           avatar={
+          
+            <Avatar alt="Coolie9" src="https://images.unsplash.com/photo-1544725176-7c40e5a
+71c5e?ixid=MnwxMjA3f
+DB8MHxzZWFyY2h8Nnx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&ixli
+b=rb-1.2.1&auto=format&fit=crop&w=500&q=60" /> 
+
+avatar={
+          
+            <Avatar alt="Coolie9" src="https://images.unsplash.com/photo-1544725176-7c40e5a
+71c5e?ixid=MnwxMjA3f
+DB8MHxzZWFyY2h8Nnx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&ixli
+b=rb-1.2.1&auto=format&fit=crop&w=500&q=60" /> 
+
+
+}
+title={"username"}
+      />
+       <CardMedia
+          className={classes.media}
+          component="img"
+          image="https://farm66.static.flickr.com/65535/36181558525_f58663bcf5.jpg"
+          title="worker"
+        />
+         <Avatar alt="Coolie9" src="https://images.unsplash.com/photo-1544725176-7c40e5a
+71c5e?ixid=MnwxMjA3f
+DB8MHxzZWFyY2h8Nnx8YXZhdGFyfGVufDB8fDB8fA%3D%3D&ixli
+b=rb-1.2.1&auto=format&fit=crop&w=500&q=60"      
+/> <h4>UserNAme</h4>
+
+//tabs
+  <TabPanel  value={value} index={0}>
+      
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        
+      </TabPanel>
+       bottom: theme.spacing(2),
+    right: theme.spacing(2),
+      //background-color:#fafafa;
+
+
+      <---------------------------------->
+       <Button size="small" color="primary">
+          <ShareIcon/>
+        </Button>
+        <IconButton aria-label="settings">
+              <MoreVertIcon />
+            </IconButton>
+            <----------------------------------loginstuff----------------->
+            import React from 'react'
+import Link from 'react-router-dom/Link'
+import {Grid, Paper, Avatar, TextField, Button, Typography, } from '@material-ui/core'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import FromControlLable from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox'; 
+
+
+ const login=(props)=>{
+    
+  const{
+    email,
+    //setEmail,
+    password,
+    //setPassword,
+    handleLogin,
+    //handleSignup,
+   // hasAccount,
+   // setHasAccount,
+    emailError,
+    passwordError,
+    } =props;
+
+
+
+
+
+  const paperStyle={padding:20, heigth:'70vh',width:280, margin:"20px auto"}
+  const avatarStyle={backgroundColor:'red'}
+  const btnStyle={margin:'9px 0'}
+    return(
+      <div className="login"> 
+
+
+      <Grid>
+          <Paper elevation={10} style={paperStyle}>
+
+             <Grid align="center">
+               <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
+               <h1>Login</h1>
+               </Grid>  
+               <TextField label="Email" placeholder ="Email" required
+               value={email} 
+               onSubmit={ (e)=> email(e.target.value)}
+               
+               fullWidth required/>
+               <p className='errorMsg'>{emailError}</p>
+
+               <TextField label="Password" placeholder ="Enter Password" type="password" 
+               required value={password} onSubmit={ (e)=>password(e.target.value)}
+               
+               
+               fullWidth required/>
+               <p className='errorMsg'>{passwordError}</p>
+              
+               <Button 
+                 onClick={handleLogin}
+                type='submit'
+                 color="secondary" 
+                 variant="contained" ><strong>Login</strong></Button>
+                <p> you dont have an account pless signup</p>
+                <Button variant="contained" color="secondary" component={Link} to="/signup"><strong>Signup</strong></Button>
+
+                  
+
+                   
+
+          </Paper>
+      </Grid>
+      </div>
+    )
+
+ }
+
+ export default login;
+ <------------------------------------end loginstuff------------------->
+ <----------------social media login code---------------------->
+ //import React, { Component } from 'react'
+import firebase from 'firebase';
+//import StyledFirebseAuth from 'react-firebaseui/StyledFirebseAuth';
+ class login extends Component {
+   state={isSignedIn:false}
+   ui.start('#firebaseui-auth-container', {
+    signInOptions: [
+      // List of OAuth providers supported.
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+      firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+      firebase.auth.GithubAuthProvider.PROVIDER_ID
+    ],
+    // Other config options...
+  });
+  render() {
+    return (
+      <div>
+        {this.state.isSignedIn? 
+        <div> login</div>
+        : 
+        <div>Not in login</div>
+        
+        
+        
+        }
+      </div>
+    )
+  }
+}
+
+export default login
+
+ <------------------------end------------------------------------>
+ <----------Postcard code----------------------------->
+ const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    maxWidth: 345,
+    margin: theme.spacing(4),
+    '& > *': {
+    // Object:'fit-content',
+      width: theme.spacing(60),
+      height: theme.spacing(20),
+      maxWidth: 345,
+    },
+  },
+  Card:{
+    minWidth: 200,
+  },
+  media: {
+    height: 140,
+  },
+  paper: {
+    height: 100,
+    width: 10,
+  },
+}));
+
+  class Post extends Component {
+    constructor(props){}
+  const classes = useStyles();
+
+  return (
+    <>
+     
+   
+    <div className={classes.root}>
+    
+      <Paper   className={classes.Paper} >
+      
+      <Card  className={classes.Card}>
+        
+      <Button size="small"color="primary">
+          <FavoriteIcon/>
+        </Button>
+<CardMedia
+          className={classes.media}
+          component="img"
+          image="https://images.unsplash.com/photo-1622176462729-6f2e63370b64?ixid=
+          MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzM3x8fGVufDB8fHx8&ixlib
+          =rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+          title="worker"
+        />
+
+       
+      </Card>
+</Paper>
+    </div>
+ 
+    </>
+  );
+}
+export default Post;
+<--------------------------end------------------------------->
+<----------------------number text---------Addpost code------->
+<TextField fullWidth label="number" placeholder="enter your Number"
+             onChange={event=>setNumber(event.target.value)}value={number}/>
+
+<--------------------------end------------------------------->
+ <TextField {...params} label="Search here..." variant="outlined" elevation={1}  />
+ <-----------------------------post.js----------------------------------------->
+ import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import MoreIcon from '@material-ui/icons/MoreVert';
+import Avatar from '@material-ui/core/Avatar';
+import ShareIcon from '@material-ui/icons/Share';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import { CardText } from 'material-ui';
+//import { Component } from 'react';
+
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    maxWidth: 345,
+    margin: theme.spacing(4),
+    '& > *': {
+    // Object:'fit-content',
+      width: theme.spacing(60),
+      height: theme.spacing(20),
+      maxWidth: 345,
+    },
+  },
+  Card:{
+    minWidth: 200,
+  },
+  media: {
+    height: 140,
+  },
+  paper: {
+    height: 100,
+    width: 10,
+  },
+  Botton:{
+    alignContent:'center',
+    alignItems:'center',
+  }
+}));
+
+  const Post=()=> {
+    
+  const classes = useStyles();
+
+  return (
+    <>
+     
+   
+    <div className={classes.root}>
+    
+      <Paper   className={classes.Paper} >
+      
+      <Card  className={classes.Card}>
+      <h4>entra babu</h4>
+      <Divider/>
+<CardMedia
+          className={classes.media}
+          component="img"
+          image="https://images.unsplash.com/photo-1622176462729-6f2e63370b64?ixid=
+          MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzM3x8fGVufDB8fHx8&ixlib
+          =rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+          title="worker"
+        />
+        <Divider/>
+        <Typography variant="h8" component="h4">
+          
+          <h4>work:dailykoolie</h4>
+          <h4>location:unknown</h4>
+          </Typography>
+          <Divider/>
+          <Button size="small"color="secondary" className="Botton">
+          <FavoriteIcon/>
+        </Button>
+      </Card>
+</Paper>
+    </div>
+ 
+    </>
+  );
+}
+<========================================end===============================>
+ <TextField {...params} label="Search here..." variant="outlined" elevation={1}  />
+
+ \
+className= {classes.appBar} className={clsx(classes.appBar, {
+          [classes.appBarShift]: open,
+          })}color=""
+          <<<<<<<<<<<<<<<<<<home code>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+          import React,{useState,useEffect,useStyles} from 'react';
+import Post from './Post';
+import {Grid} from '@material-ui/core';
+import { Subheader } from 'material-ui';
+import {db} from '../config/fire';
+//import {Grid} from '@material-ui/core';
+//import Postcard from './Postcard';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import SearchIcon from '@material-ui/icons/Search';
+import AddPost from './AddPost';
+import Input from '@material-ui/core/Input';
+import SearchBar from './SearchBar';
+import AppBar from'./AppBar2';
+import { render } from '@testing-library/react';
+
+//import SearchBar from 'material-ui-search-bar';
+calss Home extends Component {
+  const [posts,setPosts]= useState([
+   
+   
+  ]);
+
+  useEffect(()=> {
+
+    db.collection('posts').onSnapshot(snapshot =>{
+    
+      setPosts(snapshot.docs.map(doc=>({
+        id:doc.id,
+        post:doc.data()}))); 
+
+    })
+
+  },[]);
+render()
+return(
+  <>
+
+  <div>
+      <Grid align='center'>
+      <h1 color="primary">Coolie9</h1>
+     <SearchBar/>
+     
+     </Grid>
+  <Grid container  
+  justify="center"
+  alignItems="center"
+
+ spacing={2}>
+  <br/>
+  {
+  posts.map( post=>(
+    <Post key={post.id} title={post.username} subheader={post.subheader}img={post.img} work={post.work} location={post.location}/>
+  ))
+}  
+
+<Grid >
+
+  <br/>
+  
+  <Post image="https://images.unsplash.com/photo-1622241944613-81e9e9dfce03?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"/>
+</Grid>
+
+<Grid   >
+  <br/>
+  
+  <Post/>
+</Grid>
+<Grid  >
+  <br/>
+ 
+  <Post/>
+
+</Grid>
+<Grid   >
+  <br/>
+ 
+  <Post/>
+
+</Grid>
+<Grid   >
+  
+<br/>
+  <Post/>
+  
+</Grid>
+<Grid   >
+   <br/>
+  <Post/>
+</Grid>
+<Grid   >
+  <br/>
+
+  <Post/>
+</Grid>
+<Grid  >
+  <br/>
+ 
+  <Post/>
+
+</Grid>
+<Grid  >
+  <br/>
+ 
+  <Post/>
+
+</Grid>
+
+</Grid>
+
+
+
+</div>
+
+</>
+)
+
+
+}
+export default Home;
+          <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+          >>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>,
+           
+        <Typography variant="h8" component={Link} to={`/user/${userHandle}`} color="secondary">
+          {userHandle}
+          </Typography>
+          <Typography variant ="h8">{createdAt}</Typography>
+
+          <<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>><<<<<<<<<<<<>>>>>>>>>>>>>>>><<<<<<<<<<<>
+                         google authentication
+                         import React,{Component} from 'react';
+import firebase from 'firebase/app';
+import fire from '../config/fire';
+import firebaseui from 'react-firebaseui';
+import Button from '@material-ui/core/Button';
+
+
+
+
+class Profile extends Component{
+  state={isSignedIn:false}
+  uiConfig={
+    isSignInFlow:'popup',
+    signInOptions:[
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      
+      firebase.auth.EmailAuthProvider.PROVIDER_ID
+    ],
+    callbacks:{
+      signInSuccess:()=>false
+    }
+  }
+  componentDidMount=()=>{
+    firebase.auth().onAuthStateChanged(user=>{
+      this.setState({isSignedIn:!user})
+     console.log ("user,user")
+    })
+  }
+  render(){
+    return(
+      <div>
+     {this.state.isSignedIn ?(
+       <span>
+      <div>Signed In!</div>
+      <Button variant="contained" color="primary" onClick={()=>firebase.auth().signOut()}>Logout!</Button>
+      <h1>Wlecome {firebase.auth().currentUser.displayName}</h1>
+      <image 
+      alt="profile picture"
+      src={firebase.auth().currentUser.photoURL}/>
+
+      </span>
+     ):(
+     <StyledFirebaseAuth
+     uiConfig={this.uiConfig}
+     FirebaseAuth={firebase.auth()}/>
+     )}
+</div>
+
+    )
+  }
+}
+
+export default Profile;
+<<<------------------------------------------------------------------------>>>>>>>>>>>>>>>>>>>
+  search bar content--------->
+  const filter = createFilterOptions();
+
+export default function SearchBar () {
+  const [value, setValue] = React.useState(null);
+
+  return (
+    <Autocomplete
+      value={value}
+      onChange={(event, newValue) => {
+        if (typeof newValue === 'string') {
+          setValue({
+            title: newValue,
+          });
+        } else if (newValue && newValue.inputValue) {
+          // Create a new value from the user input
+          setValue({
+            title: newValue.inputValue,
+          });
+        } else {
+          setValue(newValue);
+        }
+      }}
+      filterOptions={(options, params) => {
+        const filtered = filter(options, params);
+
+        // Suggest the creation of a new value
+        if (params.inputValue !== '') {
+          filtered.push({
+            inputValue: params.inputValue,
+            title: `Add "${params.inputValue}"`,
+          });
+        }
+
+        return filtered;
+      }}
+      selectOnFocus
+      clearOnBlur
+      handleHomeEndKeys
+      //id="free-solo-with-text-demo"
+      options={categories}
+      getOptionLabel={(option) => {
+        // Value selected with enter, right from the input
+        if (typeof option === 'string') {
+          return option;
+        }
+        // Add "xxx" option created dynamically
+        if (option.inputValue) {
+          return option.inputValue;
+        }
+        // Regular option
+        return option.title;
+      }}
+      renderOption={(option) => option.title}
+      style={{ width: 350}}
+      
+      freeSolo
+      renderInput={(params) => (
+        <TextField {...params} label="Search here..."position="fixed" variant='standard' elevation={0}  />
+      )}
+    />
+  );
+}
+
+// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
+const categories = [
+  { title: 'Construction' },
+  { title:  'floorworkers' },
+  { title: 'The Godfather: Part II', year: 1974 },
+  { title: 'The Dark Knight', year: 2008 },
+  { title: '12 Angry Men', year: 1957 },
+  { title: "Schindler's List", year: 1993 },
+  { title: 'Pulp Fiction', year: 1994 },
+  { title: 'The Lord of the Rings: The Return of the King', year: 2003 },
+  { title: 'The Good, the Bad and the Ugly', year: 1966 },
+  { title: 'Fight Club', year: 1999 },
+  { title: 'The Lord of the Rings: The Fellowship of the Ring', year: 2001 },
+  { title: 'Star Wars: Episode V - The Empire Strikes Back', year: 1980 },
+  { title: 'Forrest Gump', year: 1994 },
+  { title: 'Inception', year: 2010 },
+  { title: 'The Lord of the Rings: The Two Towers', year: 2002 },
+  { title: "One Flew Over the Cuckoo's Nest", year: 1975 },
+  { title: 'Goodfellas', year: 1990 },
+  { title: 'The Matrix', year: 1999 },
+  { title: 'Seven Samurai', year: 1954 },
+  { title: 'Star Wars: Episode IV - A New Hope', year: 1977 },
+  { title: 'City of God', year: 2002 },
+  { title: 'Se7en', year: 1995 },
+  { title: 'The Silence of the Lambs', year: 1991 },
+  { title: "It's a Wonderful Life", year: 1946 },
+  { title: 'Life Is Beautiful', year: 1997 },
+  { title: 'The Usual Suspects', year: 1995 },
+  { title: 'Léon: The Professional', year: 1994 },
+  { title: 'Spirited Away', year: 2001 },
+  { title: 'Saving Private Ryan', year: 1998 },
+  { title: 'Once Upon a Time in the West', year: 1968 },
+  { title: 'American History X', year: 1998 },
+  { title: 'Interstellar', year: 2014 },
+  { title: 'Casablanca', year: 1942 },
+  { title: 'City Lights', year: 1931 },
+  { title: 'Psycho', year: 1960 },
+  { title: 'The Green Mile', year: 1999 },
+  { title: 'The Intouchables', year: 2011 },
+  { title: 'Modern Times', year: 1936 },
+  { title: 'Raiders of the Lost Ark', year: 1981 },
+  { title: 'Rear Window', year: 1954 },
+  { title: 'The Pianist', year: 2002 },
+  { title: 'The Departed', year: 2006 },
+  { title: 'Terminator 2: Judgment Day', year: 1991 },
+  { title: 'Back to the Future', year: 1985 },
+  { title: 'Whiplash', year: 2014 },
+  { title: 'Gladiator', year: 2000 },
+  { title: 'Memento', year: 2000 },
+  { title: 'The Prestige', year: 2006 },
+  { title: 'The Lion King', year: 1994 },
+  { title: 'Apocalypse Now', year: 1979 },
+  { title: 'Alien', year: 1979 },
+  { title: 'Sunset Boulevard', year: 1950 },
+  {
+    title: 'Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb',
+    year: 1964,
+  },
+  { title: 'The Great Dictator', year: 1940 },
+  { title: 'Cinema Paradiso', year: 1988 },
+  { title: 'The Lives of Others', year: 2006 },
+  { title: 'Grave of the Fireflies', year: 1988 },
+  { title: 'Paths of Glory', year: 1957 },
+  { title: 'Django Unchained', year: 2012 },
+  { title: 'The Shining', year: 1980 },
+  { title: 'WALL·E', year: 2008 },
+  { title: 'American Beauty', year: 1999 },
+  { title: 'The Dark Knight Rises', year: 2012 },
+  { title: 'Princess Mononoke', year: 1997 },
+  { title: 'Aliens', year: 1986 },
+  { title: 'Oldboy', year: 2003 },
+  { title: 'Once Upon a Time in America', year: 1984 },
+  { title: 'Witness for the Prosecution', year: 1957 },
+  { title: 'Das Boot', year: 1981 },
+  { title: 'Citizen Kane', year: 1941 },
+  { title: 'North by Northwest', year: 1959 },
+  { title: 'Vertigo', year: 1958 },
+  { title: 'Star Wars: Episode VI - Return of the Jedi', year: 1983 },
+  { title: 'Reservoir Dogs', year: 1992 },
+  { title: 'Braveheart', year: 1995 },
+  { title: 'M', year: 1931 },
+  { title: 'Requiem for a Dream', year: 2000 },
+  { title: 'Amélie', year: 2001 },
+  { title: 'A Clockwork Orange', year: 1971 },
+  { title: 'Like Stars on Earth', year: 2007 },
+  { title: 'Taxi Driver', year: 1976 },
+  { title: 'Lawrence of Arabia', year: 1962 },
+  { title: 'Double Indemnity', year: 1944 },
+  { title: 'Eternal Sunshine of the Spotless Mind', year: 2004 },
+  { title: 'Amadeus', year: 1984 },
+  { title: 'To Kill a Mockingbird', year: 1962 },
+  { title: 'Toy Story 3', year: 2010 },
+  { title: 'Logan', year: 2017 },
+  { title: 'Full Metal Jacket', year: 1987 },
+  { title: 'Dangal', year: 2016 },
+  { title: 'The Sting', year: 1973 },
+  { title: '2001: A Space Odyssey', year: 1968 },
+  { title: "Singin' in the Rain", year: 1952 },
+  { title: 'Toy Story', year: 1995 },
+  { title: 'Bicycle Thieves', year: 1948 },
+  { title: 'The Kid', year: 1921 },
+  { title: 'Inglourious Basterds', year: 2009 },
+  { title: 'Snatch', year: 2000 },
+  { title: '3 Idiots', year: 2009 },
+  { title: 'Monty Python and the Holy Grail', year: 1975 },
+];
+______--------------------------------------------------------_______________
+
+
+   display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-end',
+ <h2 style={headerStyle}>Cooli9</h2>
+
+  <Grid item xs={80}>
+          <Paper className={classes.paper}>item</Paper>
+        </Grid>
+        <Grid item xs={4}>
+          <Paper className={classes.paper}>item</Paper>
+        </Grid>
+        <Grid item xs={4}>
+          <Paper className={classes.paper}>item</Paper>
+        </Grid>
+
+
+ >>>>>>>>>>>>>>>>>......       responsive grids>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ <h1>Change the window size for the responsive layout</h1>
+<div class="grid_items">
+  <div class="grid_item">A <br>Lorem ipsum dolor sit amet. <br>Consectetuer adipiscing elit. <br>Cum sociis natoque penatibus et magnis dis parturient montes. <br>nascetur ridiculus mus.</div>
+  <div class="grid_item">B</div>
+  //css//
+  .grid_items {
+  padding: 3.75%;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-column-gap: 0;
+  grid-row-gap: 20px;
+}
+.grid_items > div {
+  background-color: RoyalBlue;
+  padding: 10px;
+}
+.grid_items > div:nth-child(3n + 2) {
+  background-color: DodgerBlue;
+}
+.grid_items > div:nth-child(3n) {
+  background-color: DeepSkyBlue;
+}
+@media only screen and (min-width: 640px) {
+  .grid_items {
+    grid-template-columns: 47.5% 47.5%;
+    grid-column-gap: 5%;
+    grid-row-gap: 40px;
+  }
+  .grid_items > div {
+    padding: 20px;
+  }
+}
+@media only screen and (min-width: 981px) {
+  .grid_items {
+    grid-template-columns: 30% 30% 30%;
+    grid-row-gap: 50px;
+  }
+  .grid_items > div {
+    padding: 30px;
+  }
+}
+small: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+    marginTop:theme.spacing(0),
+    
+  },
+  ////////////////firebase config////////////////
+  const firebaseApp= firebase.initializeApp ({
+ 
+    apiKey: "AIzaSyDUBfQD2gcsth0dfO_zZ7-vpks1rIOEf-U",
+    authDomain: "koolie-79d7d.firebaseapp.com",
+    projectId: "koolie-79d7d",
+    storageBucket: "koolie-79d7d.appspot.com",
+    messagingSenderId: "1086482082836",
+    appId: "1:1086482082836:web:f3e4f0072b1e6aad0d4b01",
+    measurementId: "G-JY4N7LPSPX"
+});
+
+    
+  const db = firebase.firestore();
+  const auth = firebase.auth();
+  const storage= firebase.storage();

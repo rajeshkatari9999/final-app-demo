@@ -1,0 +1,77 @@
+*{
+    margin: 0%;
+    padding: 0%;
+    z-index: 100;
+   
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header,html,i,label,li,nav,p,small,span,ul{
+   margin: 0;
+   padding: 0;
+   border: 0;
+   outline: none;
+   font-size: 100%;
+   vertical-align: baseline;
+   background:transparent;
+  
+}
+
+ body{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Lobster', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+background-color: #fff;
+    margin:  0% ;
+    padding: 0%;
+    z-index: 100;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    box-sizing: border-box;
+ }
+ img{
+    color: azure;
+    margin: 0;
+   padding: 0;
+   border: 0;
+   outline: none;
+   font-size: 100%;
+   vertical-align: baseline;
+   background:transparent;
+ }
+ 
+ .App{
+    align-items: center;   
+    align-self: center ;
+    min-height: 100vh;
+    position: static;
+    background-color: #fff;
+   
+ }
+ @media(max-width:700px){
+    .App{
+       
+       min-width: min-content;
+    }
+ }
+ 
+  .search{
+     display: flex;
+     margin: 15px 0;
+  }
+ 
+.footer{
+    padding-block-end: 10%;
+    padding-inline-end: 19%;
+   padding-top: 10%;
+   background-color: black;
+   align-content: flex-end;
+   align-items: flex-end;
+}
+from{
+   
+}
